@@ -1,0 +1,23 @@
+name: CI
+
+on: [pull_request, commit]
+
+jobs:
+  tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - uses: browser-actions/setup-chrome@latest
+      - run: npm install
+      - run: npm tsc
+      - run: yarn test
+      - uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          lcov-file: ./coverage/lcov.info
+          github-token: ${{ secrets.GITHUB_TOKEN }}
