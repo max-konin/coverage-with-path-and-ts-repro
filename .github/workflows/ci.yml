@@ -15,8 +15,8 @@ jobs:
           node-version: '14'
       - uses: browser-actions/setup-chrome@latest
       - run: npm install
-      - run: COVERAGE=true npm run ember b --environment test
-      - run: COVERAGE=true npm run ember t --path dist
+      - run: COVERAGE=true ember b --environment test
+      - run: COVERAGE=true ember t --path dist
       - uses: romeovs/lcov-reporter-action@v0.2.16
         with:
           lcov-file: ./coverage/lcov.info
